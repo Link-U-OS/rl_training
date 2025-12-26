@@ -1,0 +1,389 @@
+<mujoco model="a2_t2d0_ultra">
+  <default>
+    <default class="robot">
+      <default class="visual">
+        <geom contype="0" conaffinity="0" group="2" />
+      </default>
+      <default class="collision">
+        <geom contype="0" conaffinity="1" group="3" />
+      </default>
+    </default>
+    <default class="floor">
+      <geom type="plane" size="0 0 0.05" material="groundplane" />
+    </default>
+  </default>
+
+  <compiler angle="radian" meshdir="." balanceinertia="true" />
+
+  <visual>
+    <global offwidth="3840" offheight="2160" />
+  </visual>
+
+  <worldbody>
+    <body name="base_link" childclass="robot" pos="0 0 1.0228">
+      <inertial pos="-0.07088950 -0.00016512 0.16138088" mass="18.89945962" diaginertia="0.59376016 0.55503329 0.18455985" />
+      <geom name="base_link_collision" type="mesh" mesh="collision_body_hull" class="collision" />
+      <geom name="base_link_visual" type="mesh" mesh="base_link_body" material="default_material" class="visual" />
+      <body name="left_hip_roll" pos="-0.0808 0.105 -0.0652" quat="0.6533 0.2706 0.2706 0.6533">
+        <inertial pos="0.00011252 0.02130615 -0.07465143" mass="2.39059365" diaginertia="0.00381223 0.00368166 0.00334373" />
+        <joint name="idx01_left_hip_roll" type="hinge" range="-0.698 0.698" axis="0 0 1" />
+        <geom name="left_hip_roll_collision" type="mesh" mesh="collision_left_hip_roll_hull" class="collision" />
+        <geom name="left_hip_roll_visual" type="mesh" mesh="left_hip_roll_left_hip_roll" material="default_material" class="visual" />
+        <body name="left_hip_yaw" pos="0 -0.017 -0.0682" quat="0.5 0.5 -0.5 0.5">
+          <inertial pos="-0.00012288 0.01576460 0.10828703" mass="3.79911511" diaginertia="0.00941292 0.01442888 0.00698406" />
+          <joint name="idx02_left_hip_yaw" type="hinge" range="-1.57 1.57" axis="0 0 1" />
+          <geom name="left_hip_yaw_collision" type="mesh" mesh="collision_left_hip_yaw_hull" class="collision" />
+          <geom name="left_hip_yaw_visual" type="mesh" mesh="left_hip_yaw_left_hip_yaw" material="default_material" class="visual" />
+          <body name="left_hip_pitch" pos="0 -0.020 0.1205" quat="0.6533 0.6533 0.2706 -0.2706">
+            <inertial pos="-0.06943423 0.00469099 0.02228242" mass="5.9246188" diaginertia="0.01406779 0.08875802 0.0935694" />
+            <joint name="idx03_left_hip_pitch" type="hinge" range="-1.919862144 0.78539815" axis="0 0 1" />
+            <geom name="left_hip_pitch_collision" type="mesh" mesh="collision_left_hip_pitch_hull" class="collision" />
+            <geom name="left_hip_pitch_visual" type="mesh" mesh="left_hip_pitch_left_hip_pitch" material="default_material" class="visual" />
+            <body name="left_tarsus" pos="-0.34 0 0">
+              <inertial pos="-0.17711952 0.00417209 0.00013325" mass="3.02166726" diaginertia="0.00286094 0.02537518 0.0267432" />
+              <joint name="idx04_left_tarsus" type="hinge" range="-0.087266461 2.443460911" axis="0 0 1" />
+              <geom name="left_tarsus_collision" type="mesh" mesh="collision_left_tarsus_hull" class="collision" />
+              <geom name="left_tarsus_visual" type="mesh" mesh="left_tarsus_left_tarsus" material="default_material" class="visual" />
+              <body name="left_toe_pitch" pos="-0.377 0 0">
+                <inertial pos="0 0 0" mass="0.08772028" diaginertia="1.572e-05 1.128e-05 1.148e-05" />
+                <joint name="idx05_left_toe_pitch" type="hinge" range="-1.047197533 0.523598767" axis="0 0 1" />
+                <geom name="left_toe_pitch_collision" type="mesh" mesh="collision_left_toe_pitch_hull" class="collision" />
+                <geom name="left_toe_pitch_visual" type="mesh" mesh="left_toe_pitch_left_toe_pitch" material="default_material" class="visual" />
+                <body name="left_toe_roll" quat="0.7071 -0.7071 0 0">
+                  <inertial pos="-0.03898340 0.00002335 0.03167314" mass="1.21058213" diaginertia="0.00701152 0.0065321 0.00112114" />
+                  <joint name="idx06_left_toe_roll" type="hinge" range="-0.488692182 0.488692182" axis="0 0 1" />
+                  <geom name="left_toe_roll_collision" type="mesh" mesh="collision_left_toe_roll_hull" class="collision" />
+                  <geom name="left_toe_roll_visual" type="mesh" mesh="left_toe_roll_left_toe_roll" material="default_material" class="visual" />
+                </body>
+              </body>
+              <body name="left_toe_A" pos="-0.138 0 -0.0315" quat="0.7071 0 0 -0.7071">
+                <inertial pos="0.0161339967539726 0.000256129454551002 0.00157429551114607" mass="0.0959876868449394" diaginertia="1.47306660350068e-05 5.94672539950203e-05 6.68731361080011e-05" />
+                <geom name="left_toe_A_collision" type="mesh" mesh="collision_left_toe_A_hull" class="collision" />
+                <geom name="left_toe_A_visual" type="mesh" mesh="left_toe_A_left_toe_A" material="default_material" class="visual" />
+                <body name="left_toe_A_rod" pos="0.063 0 0" quat="0 -0.7071 -0.7071 0">
+                  <inertial pos="-0.11950903764711 -4.54312300279813E-09 2.0722082788957E-05" mass="0.133194826485547" diaginertia="4.13825335822083e-06 0.000625059882342822 0.000627531716420437" />
+                  <geom name="left_toe_A_rod_collision" type="mesh" mesh="collision_left_toe_A_rod_hull" class="collision" />
+                  <geom name="left_toe_A_rod_visual" type="mesh" mesh="left_toe_A_rod_left_toe_A_rod" material="default_material" class="visual" />
+                </body>
+              </body>
+              <body name="left_toe_B" pos="-0.232 0 0.0315" quat="0.7071 0 0 -0.7071">
+                <inertial pos="0.0161339965985728 0.000256125750057401 -0.00157429547986562" mass="0.0959876865489089" diaginertia="1.47306660936761e-05 5.94672535179347e-05 6.68731357299622e-05" />
+                <geom name="left_toe_B_collision" type="mesh" mesh="collision_left_toe_B_hull" class="collision" />
+                <geom name="left_toe_B_visual" type="mesh" mesh="left_toe_B_left_toe_B" material="default_material" class="visual" />
+                <body name="left_toe_B_rod" pos="0.063 0 0" quat="0 -0.7071 -0.7071 0">
+                  <inertial pos="-0.0725000006179941 2.39833153337088E-11 2.75483156604583E-05" mass="0.0989853087337602" diaginertia="3.41390504492216e-06 0.000168898913472365 0.000171065639810982" />
+                  <geom name="left_toe_B_rod_collision" type="mesh" mesh="collision_left_toe_B_rod_hull" class="collision" />
+                  <geom name="left_toe_B_rod_visual" type="mesh" mesh="left_toe_B_rod_left_toe_B_rod" material="default_material" class="visual" />
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="right_hip_roll" pos="-0.0808 -0.105 -0.0652" quat="0.6533 0.2706 0.2706 0.6533">
+        <inertial pos="-0.00011252 0.02130615 -0.07465143" mass="2.39059365" diaginertia="0.00381223 0.00368166 0.00334373" />
+        <joint name="idx07_right_hip_roll" type="hinge" range="-0.698 0.698" axis="0 0 1" />
+        <geom name="right_hip_roll_collision" type="mesh" mesh="collision_right_hip_roll_hull" class="collision" />
+        <geom name="right_hip_roll_visual" type="mesh" mesh="right_hip_roll_right_hip_roll" material="default_material" class="visual" />
+        <body name="right_hip_yaw" pos="0 -0.017 -0.0682" quat="0.5 0.5 -0.5 0.5">
+          <inertial pos="-0.00012288 -0.01576460 0.10828703" mass="3.79911511" diaginertia="0.00941292 0.01442888 0.00698406" />
+          <joint name="idx08_right_hip_yaw" type="hinge" range="-1.57 1.57" axis="0 0 1" />
+          <geom name="right_hip_yaw_collision" type="mesh" mesh="collision_right_hip_yaw_hull" class="collision" />
+          <geom name="right_hip_yaw_visual" type="mesh" mesh="right_hip_yaw_right_hip_yaw" material="default_material" class="visual" />
+          <body name="right_hip_pitch" pos="0 0.020 0.1205" quat="0.6533 0.6533 0.2706 -0.2706">
+            <inertial pos="-0.06943423 0.00469099 -0.02228242" mass="5.9246188" diaginertia="0.01406779 0.08875802 0.0935694" />
+            <joint name="idx09_right_hip_pitch" type="hinge" range="-1.919862144 0.78539815" axis="0 0 1" />
+            <geom name="right_hip_pitch_collision" type="mesh" mesh="collision_right_hip_pitch_hull" class="collision" />
+            <geom name="right_hip_pitch_visual" type="mesh" mesh="right_hip_pitch_right_hip_pitch" material="default_material" class="visual" />
+            <body name="right_tarsus" pos="-0.34 0 0">
+              <inertial pos="-0.17711952 0.00417209 -0.00013325" mass="3.02166726" diaginertia="0.00286094 0.02537518 0.0267432" />
+              <joint name="idx10_right_tarsus" type="hinge" range="-0.087266461 2.443460911" axis="0 0 1" />
+              <geom name="right_tarsus_collision" type="mesh" mesh="collision_right_tarsus_hull" class="collision" />
+              <geom name="right_tarsus_visual" type="mesh" mesh="right_tarsus_right_tarsus" material="default_material" class="visual" />
+              <body name="right_toe_pitch" pos="-0.377 0 0">
+                <inertial pos="0 0 0" mass="0.08772028" diaginertia="1.572e-05 1.128e-05 1.148e-05" />
+                <joint name="idx11_right_toe_pitch" type="hinge" range="-1.047197533 0.523598767" axis="0 0 1" />
+                <geom name="right_toe_pitch_collision" type="mesh" mesh="collision_right_toe_pitch_hull" class="collision" />
+                <geom name="right_toe_pitch_visual" type="mesh" mesh="right_toe_pitch_right_toe_pitch" material="default_material" class="visual" />
+                <body name="right_toe_roll" quat="0.7071 -0.7071 0 0">
+                  <inertial pos="-0.03898340 -0.00002335 0.03167314" mass="1.21058213" diaginertia="0.00701152 0.0065321 0.00112114" />
+                  <joint name="idx12_right_toe_roll" type="hinge" range="-0.488692182 0.488692182" axis="0 0 1" />
+                  <geom name="right_toe_roll_collision" type="mesh" mesh="collision_right_toe_roll_hull" class="collision" />
+                  <geom name="right_toe_roll_visual" type="mesh" mesh="right_toe_roll_right_toe_roll" material="default_material" class="visual" />
+                </body>
+              </body>
+              <body name="right_toe_A" pos="-0.138 0 0.0315" quat="0.7071 0 0 -0.7071">
+                <inertial pos="0.0161564618609389 0.00025642819293159 -0.001574295479989" mass="0.0959876865493352" diaginertia="1.47306517352712e-05 5.94672678768343e-05 6.68731357306057e-05" />
+                <geom name="right_toe_A_collision" type="mesh" mesh="collision_right_toe_A_hull" class="collision" />
+                <geom name="right_toe_A_visual" type="mesh" mesh="right_toe_A_right_toe_A" material="default_material" class="visual" />
+                <body name="right_toe_A_rod" pos="0.063 0 0" quat="0 0.7071 0.7071 0">
+                  <inertial pos="-0.119506775010566 2.76775022988937E-05 2.07236899269908E-05" mass="0.133194826485545" diaginertia="4.13825457277786e-06 0.00062505988112825 0.000627531716420421" />
+                  <geom name="right_toe_A_rod_collision" type="mesh" mesh="collision_right_toe_A_rod_hull" class="collision" />
+                  <geom name="right_toe_A_rod_visual" type="mesh" mesh="right_toe_A_rod_right_toe_A_rod" material="default_material" class="visual" />
+                </body>
+              </body>
+              <body name="right_toe_B" pos="-0.232 0 -0.0315" quat="0.7071 0 0 -0.7071">
+                <inertial pos="0.0161605408863716 0.000255895525077321 0.00157429551102603" mass="0.0959876868444429" diaginertia="1.47306045969354e-05 5.94673154325773e-05 6.68731361073396e-05" />
+                <geom name="right_toe_B_collision" type="mesh" mesh="collision_right_toe_B_hull" class="collision" />
+                <geom name="right_toe_B_visual" type="mesh" mesh="right_toe_B_right_toe_B" material="default_material" class="visual" />
+                <body name="right_toe_B_rod" pos="0.063 0 0" quat="0 0.7071 0.7071 0">
+                  <inertial pos="-0.0724977388604912 2.97174338039705E-05 2.75478483252878E-05" mass="0.0989853087337611" diaginertia="3.41390533484477e-06 0.000168898913182443 0.000171065639810983" />
+                  <geom name="right_toe_B_rod_collision" type="mesh" mesh="collision_right_toe_B_rod_hull" class="collision" />
+                  <geom name="right_toe_B_rod_visual" type="mesh" mesh="right_toe_B_rod_right_toe_B_rod" material="default_material" class="visual" />
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="left_arm_link_base" pos="-0.03779 0 0.3421" quat="0.7071 0.7071 0 0">
+        <body name="left_arm_link01" pos="-0.0 0.0 -0.191 " quat="0.5608 -0.4307 -0.4307 -0.5608">
+          <inertial pos="-0.002330 0.008782 0.032870" mass="0.276944" diaginertia="0.000595 0.000381 0.000542" />
+          <geom name="left_arm_link01_collision" type="mesh" mesh="collision_left_arm_link01_hull" class="collision" />
+          <geom name="left_arm_link01_visual" type="mesh" mesh="left_arm_link01_left_arm_link01" material="default_material" class="visual" />
+          <body name="left_arm_link02" quat="0.7071 0.7071 0 0">
+            <inertial pos="-0.000451 -0.051682 -0.001084" mass="2.852114" diaginertia="0.011984 0.00288 0.011709" />
+            <geom name="left_arm_link02_collision" type="mesh" mesh="collision_left_arm_link02_hull" class="collision" />
+            <geom name="left_arm_link02_visual" type="mesh" mesh="left_arm_link02_left_arm_link02" material="default_material" class="visual" />
+            <body name="left_arm_link03" pos="0 -0.154 0" quat="0.7071 0.7071 0 0">
+              <inertial pos="-0.000673 0.001065 0.079222" mass="1.310295" diaginertia="0.00203 0.002186 0.001189" />
+              <geom name="left_arm_link03_collision" type="mesh" mesh="collision_left_arm_link03_hull" class="collision" />
+              <geom name="left_arm_link03_visual" type="mesh" mesh="left_arm_link03_left_arm_link03" material="default_material" class="visual" />
+              <body name="left_arm_link04" pos="0 0 0.093" quat="0.5 -0.5 -0.5 0.5">
+                <inertial pos="0.000273 -0.066853 -0.007408" mass="0.677343" diaginertia="0.000893 0.000508 0.000767" />
+                <geom name="left_arm_link04_collision" type="mesh" mesh="collision_left_arm_link04_hull" class="collision" />
+                <geom name="left_arm_link04_visual" type="mesh" mesh="left_arm_link04_left_arm_link04" material="default_material" class="visual" />
+                <body name="left_arm_link05" pos="0  -0.103 0.0" quat="0.5002 0.5002 -0.4998 0.4998">
+                  <inertial pos="-0.001962 -0.000002 0.071786" mass="0.260886" diaginertia="0.000638 0.000618 0.000229" />
+                  <geom name="left_arm_link05_collision" type="mesh" mesh="collision_left_arm_link05_hull" class="collision" />
+                  <geom name="left_arm_link05_visual" type="mesh" mesh="left_arm_link05_left_arm_link05" material="default_material" class="visual" />
+                  <body name="left_arm_link06" pos="-0.01 0 0.1595" quat="0.5 -0.5 0.5 0.5">
+                    <inertial pos="0.00018011 -0.00021701 0.00000000" mass="0.02504627" diaginertia="1.97e-06 1.73e-06 7.1e-07" />
+                    <geom name="left_arm_link06_collision" type="mesh" mesh="collision_left_arm_link06_hull" class="collision" />
+                    <geom name="left_arm_link06_visual" type="mesh" mesh="left_arm_link06_left_arm_link06" material="default_material" class="visual" />
+                    <body name="left_arm_link07" quat="0.7071 0.7071 0 0">
+                      <inertial pos="-0.01211757 -0.00009712 0.00886324" mass="0.05050219" diaginertia="8.28e-06 1.14e-05 1.294e-05" />
+                      <geom name="left_arm_link07_collision" type="mesh" mesh="collision_left_arm_link07_hull" class="collision" />
+                      <geom name="left_arm_link07_visual" type="mesh" mesh="left_arm_link07_left_arm_link07" material="default_material" class="visual" />
+                      <body name="left_hand" quat="0.5 0.5 -0.5 -0.5">
+                        <geom name="left_hand_collision" type="mesh" mesh="collision_left_hand_hull" class="collision" />
+                        <geom name="left_hand_visual" type="mesh" mesh="left_hand_left_hand" material="default_material" class="visual" />
+                      </body>
+                    </body>
+                  </body>
+                  <body name="left_wrist_motor_A" pos="0.005 0.02245 0.0245" quat="0.0074 0 -1 0">
+                    <geom name="left_wrist_motor_A_collision" type="mesh" mesh="collision_left_wrist_motor_A_hull" class="collision" />
+                    <geom name="left_wrist_motor_A_visual" type="mesh" mesh="left_wrist_motor_A_left_wrist_motor_A" material="default_material" class="visual" />
+                    <body name="left_wrist_rod_A" pos="0 0 -0.135015" quat="0 0 1 0">
+                      <geom name="left_wrist_rod_A_collision" type="mesh" mesh="collision_left_wrist_rod_A_hull" class="collision" />
+                      <geom name="left_wrist_rod_A_visual" type="mesh" mesh="left_wrist_rod_A_left_wrist_rod_A" material="default_material" class="visual" />
+                    </body>
+                  </body>
+                  <body name="left_wrist_motor_B" pos="0.005 -0.02245 0.0245" quat="0.0074 0 -1 0">
+                    <geom name="left_wrist_motor_B_collision" type="mesh" mesh="collision_left_wrist_motor_B_hull" class="collision" />
+                    <geom name="left_wrist_motor_B_visual" type="mesh" mesh="left_wrist_motor_B_left_wrist_motor_B" material="default_material" class="visual" />
+                    <body name="left_wrist_rod_B" pos="0 0 -0.135015" quat="0 0 1 0">
+                      <geom name="left_wrist_rod_B_collision" type="mesh" mesh="collision_left_wrist_rod_B_hull" class="collision" />
+                      <geom name="left_wrist_rod_B_visual" type="mesh" mesh="left_wrist_rod_B_left_wrist_rod_B" material="default_material" class="visual" />
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="right_arm_link_base" pos="-0.03779 0 0.3421" quat="0.7071 0.7071 0 0">
+        <body name="right_arm_link01" pos="-0.0 0.0 0.191 " quat="0.5608 0.4307 0.4307 -0.5608">
+          <inertial pos="-0.002330 0.008782 -0.032870" mass="0.276944" diaginertia="0.000595 0.000381 0.000542" />
+          <geom name="right_arm_link01_collision" type="mesh" mesh="collision_right_arm_link01_hull" class="collision" />
+          <geom name="right_arm_link01_visual" type="mesh" mesh="right_arm_link01_right_arm_link01" material="default_material" class="visual" />
+          <body name="right_arm_link02" quat="0.7071 0.7071 0 0">
+            <inertial pos="-0.000451 0.051682 -0.001084" mass="2.852114" diaginertia="0.011984 0.00288 0.011709" />
+            <geom name="right_arm_link02_collision" type="mesh" mesh="collision_right_arm_link02_hull" class="collision" />
+            <geom name="right_arm_link02_visual" type="mesh" mesh="right_arm_link02_right_arm_link02" material="default_material" class="visual" />
+            <body name="right_arm_link03" pos="0 0.154  0" quat="0.7071 0.7071 0 0">
+              <inertial pos="-0.000673 0.001065 -0.079222" mass="1.310295" diaginertia="0.00203 0.002186 0.001189" />
+              <geom name="right_arm_link03_collision" type="mesh" mesh="collision_right_arm_link03_hull" class="collision" />
+              <geom name="right_arm_link03_visual" type="mesh" mesh="right_arm_link03_right_arm_link03" material="default_material" class="visual" />
+              <body name="right_arm_link04" pos="0 0 -0.093" quat="0.5 -0.5 -0.5 0.5">
+                <inertial pos="0.000273 0.066853 -0.007408" mass="0.677343" diaginertia="0.000893 0.000508 0.000767" />
+                <geom name="right_arm_link04_collision" type="mesh" mesh="collision_right_arm_link04_hull" class="collision" />
+                <geom name="right_arm_link04_visual" type="mesh" mesh="right_arm_link04_right_arm_link04" material="default_material" class="visual" />
+                <body name="right_arm_link05" pos="0  0.103 0.0" quat="0.5002 0.5002 -0.4998 0.4998">
+                  <inertial pos="-0.001962 -0.000002 -0.071786" mass="0.260886" diaginertia="0.000638 0.000618 0.000229" />
+                  <geom name="right_arm_link05_collision" type="mesh" mesh="collision_right_arm_link05_hull" class="collision" />
+                  <geom name="right_arm_link05_visual" type="mesh" mesh="right_arm_link05_right_arm_link05" material="default_material" class="visual" />
+                  <body name="right_arm_link06" pos="-0.01 0 -0.1595" quat="0.5 -0.5 0.5 0.5">
+                    <inertial pos="-0.00018011 -0.00021701 0.00000000" mass="0.02504627" diaginertia="1.97e-06 1.73e-06 7.1e-07" />
+                    <geom name="right_arm_link06_collision" type="mesh" mesh="collision_right_arm_link06_hull" class="collision" />
+                    <geom name="right_arm_link06_visual" type="mesh" mesh="right_arm_link06_right_arm_link06" material="default_material" class="visual" />
+                    <body name="right_arm_link07" quat="0.7071 0.7071 0 0">
+                      <inertial pos="0.01211757 -0.00009712 0.00886324" mass="0.05050219" diaginertia="8.28e-06 1.14e-05 1.294e-05" />
+                      <geom name="right_arm_link07_collision" type="mesh" mesh="collision_right_arm_link07_hull" class="collision" />
+                      <geom name="right_arm_link07_visual" type="mesh" mesh="right_arm_link07_right_arm_link07" material="default_material" class="visual" />
+                      <body name="right_hand" quat="0.5 -0.5 0.5 -0.5">
+                        <geom name="right_hand_collision" type="mesh" mesh="collision_right_hand_hull" class="collision" />
+                        <geom name="right_hand_visual" type="mesh" mesh="right_hand_right_hand" material="default_material" class="visual" />
+                      </body>
+                    </body>
+                  </body>
+                  <body name="right_wrist_motor_A" pos="0.005 0.02245 -0.0245" quat="1 0 -0.0074 0">
+                    <geom name="right_wrist_motor_A_collision" type="mesh" mesh="collision_right_wrist_motor_A_hull" class="collision" />
+                    <geom name="right_wrist_motor_A_visual" type="mesh" mesh="right_wrist_motor_A_right_wrist_motor_A" material="default_material" class="visual" />
+                    <body name="right_wrist_rod_A" pos="0 0 -0.135015" quat="0 0 1 0">
+                      <geom name="right_wrist_rod_A_collision" type="mesh" mesh="collision_right_wrist_rod_A_hull" class="collision" />
+                      <geom name="right_wrist_rod_A_visual" type="mesh" mesh="right_wrist_rod_A_right_wrist_rod_A" material="default_material" class="visual" />
+                    </body>
+                  </body>
+                  <body name="right_wrist_motor_B" pos="0.005 -0.02245 -0.0245" quat="1 0 -0.0074 0">
+                    <geom name="right_wrist_motor_B_collision" type="mesh" mesh="collision_right_wrist_motor_B_hull" class="collision" />
+                    <geom name="right_wrist_motor_B_visual" type="mesh" mesh="right_wrist_motor_B_right_wrist_motor_B" material="default_material" class="visual" />
+                    <body name="right_wrist_rod_B" pos="0 0 -0.135015" quat="0 0 1 0">
+                      <geom name="right_wrist_rod_B_collision" type="mesh" mesh="collision_right_wrist_rod_B_hull" class="collision" />
+                      <geom name="right_wrist_rod_B_visual" type="mesh" mesh="right_wrist_rod_B_right_wrist_rod_B" material="default_material" class="visual" />
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="head_link01" pos="-0.03779 0 0.4101">
+        <inertial pos="-0.00154008 0.00649494 0.11627791" mass="1.39889495" diaginertia="0.00378192 0.0039315 0.00152438" />
+        <geom name="head_link01_collision" type="mesh" mesh="collision_head_link01_hull" class="collision" />
+        <geom name="head_link01_visual" type="mesh" mesh="head_link01_head_link01" material="default_material" class="visual" />
+        <body name="head_link02" pos="-0.00501 0 0.16059" quat="0.7071 0.7071 0 0">
+          <inertial pos="0.03256533 0.02834041 0.00009476" mass="0.65606942" diaginertia="0.00350189 0.00369636 0.0036095" />
+          <geom name="head_link02_collision" type="mesh" mesh="collision_head_link02_hull" class="collision" />
+          <geom name="head_link02_visual" type="mesh" mesh="head_link02_head_link02" material="default_material" class="visual" />
+        </body>
+      </body>
+      <!-- <freejoint name="floating_base" /> -->
+    </body>
+    <!-- <light pos="0 0 2." dir="0 0 -1" directional="true" /> -->
+    <light name="spotlight" mode="targetbodycom" target="base_link" pos="0 -1 2" />
+    <!-- <geom name="floor" class="floor" size="0 0 0.05" /> -->
+  </worldbody>
+
+  <asset>
+    <material name="default_material" rgba="0.7 0.7 0.7 1" />
+    <mesh name="collision_body_hull" file="../meshes/convex/body_hull.stl" />
+    <mesh name="base_link_body" file="../meshes/public/body.stl" />
+    <mesh name="collision_left_hip_roll_hull" file="../meshes/convex/left_hip_roll_hull.stl" />
+    <mesh name="left_hip_roll_left_hip_roll" file="../meshes/public/left_hip_roll.stl" />
+    <mesh name="collision_left_hip_yaw_hull" file="../meshes/convex/left_hip_yaw_hull.stl" />
+    <mesh name="left_hip_yaw_left_hip_yaw" file="../meshes/public/left_hip_yaw.stl" />
+    <mesh name="collision_left_hip_pitch_hull" file="../meshes/convex/left_hip_pitch_hull.stl" />
+    <mesh name="left_hip_pitch_left_hip_pitch" file="../meshes/public/left_hip_pitch.stl" />
+    <mesh name="collision_left_tarsus_hull" file="../meshes/convex/left_tarsus_hull.stl" />
+    <mesh name="left_tarsus_left_tarsus" file="../meshes/public/left_tarsus.stl" />
+    <mesh name="collision_left_toe_pitch_hull" file="../meshes/convex/left_toe_pitch_hull.stl" />
+    <mesh name="left_toe_pitch_left_toe_pitch" file="../meshes/public/left_toe_pitch.stl" />
+    <mesh name="collision_left_toe_roll_hull" file="../meshes/convex/left_toe_roll_hull.stl" />
+    <mesh name="left_toe_roll_left_toe_roll" file="../meshes/public/left_toe_roll.stl" />
+    <mesh name="collision_left_toe_A_hull" file="../meshes/convex/left_toe_A_hull.stl" />
+    <mesh name="left_toe_A_left_toe_A" file="../meshes/public/left_toe_A.stl" />
+    <mesh name="collision_left_toe_A_rod_hull" file="../meshes/convex/left_toe_A_rod_hull.stl" />
+    <mesh name="left_toe_A_rod_left_toe_A_rod" file="../meshes/public/left_toe_A_rod.stl" />
+    <mesh name="collision_left_toe_B_hull" file="../meshes/convex/left_toe_B_hull.stl" />
+    <mesh name="left_toe_B_left_toe_B" file="../meshes/public/left_toe_B.stl" />
+    <mesh name="collision_left_toe_B_rod_hull" file="../meshes/convex/left_toe_B_rod_hull.stl" />
+    <mesh name="left_toe_B_rod_left_toe_B_rod" file="../meshes/public/left_toe_B_rod.stl" />
+    <mesh name="collision_right_hip_roll_hull" file="../meshes/convex/right_hip_roll_hull.stl" />
+    <mesh name="right_hip_roll_right_hip_roll" file="../meshes/public/right_hip_roll.stl" />
+    <mesh name="collision_right_hip_yaw_hull" file="../meshes/convex/right_hip_yaw_hull.stl" />
+    <mesh name="right_hip_yaw_right_hip_yaw" file="../meshes/public/right_hip_yaw.stl" />
+    <mesh name="collision_right_hip_pitch_hull" file="../meshes/convex/right_hip_pitch_hull.stl" />
+    <mesh name="right_hip_pitch_right_hip_pitch" file="../meshes/public/right_hip_pitch.stl" />
+    <mesh name="collision_right_tarsus_hull" file="../meshes/convex/right_tarsus_hull.stl" />
+    <mesh name="right_tarsus_right_tarsus" file="../meshes/public/right_tarsus.stl" />
+    <mesh name="collision_right_toe_pitch_hull" file="../meshes/convex/right_toe_pitch_hull.stl" />
+    <mesh name="right_toe_pitch_right_toe_pitch" file="../meshes/public/right_toe_pitch.stl" />
+    <mesh name="collision_right_toe_roll_hull" file="../meshes/convex/right_toe_roll_hull.stl" />
+    <mesh name="right_toe_roll_right_toe_roll" file="../meshes/public/right_toe_roll.stl" />
+    <mesh name="collision_right_toe_A_hull" file="../meshes/convex/right_toe_A_hull.stl" />
+    <mesh name="right_toe_A_right_toe_A" file="../meshes/public/right_toe_A.stl" />
+    <mesh name="collision_right_toe_A_rod_hull" file="../meshes/convex/right_toe_A_rod_hull.stl" />
+    <mesh name="right_toe_A_rod_right_toe_A_rod" file="../meshes/public/right_toe_A_rod.stl" />
+    <mesh name="collision_right_toe_B_hull" file="../meshes/convex/right_toe_B_hull.stl" />
+    <mesh name="right_toe_B_right_toe_B" file="../meshes/public/right_toe_B.stl" />
+    <mesh name="collision_right_toe_B_rod_hull" file="../meshes/convex/right_toe_B_rod_hull.stl" />
+    <mesh name="right_toe_B_rod_right_toe_B_rod" file="../meshes/public/right_toe_B_rod.stl" />
+    <mesh name="collision_left_arm_link01_hull" file="../meshes/convex/left_arm_link01_hull.stl" />
+    <mesh name="left_arm_link01_left_arm_link01" file="../meshes/public/left_arm_link01.stl" />
+    <mesh name="collision_left_arm_link02_hull" file="../meshes/convex/left_arm_link02_hull.stl" />
+    <mesh name="left_arm_link02_left_arm_link02" file="../meshes/public/left_arm_link02.stl" />
+    <mesh name="collision_left_arm_link03_hull" file="../meshes/convex/left_arm_link03_hull.stl" />
+    <mesh name="left_arm_link03_left_arm_link03" file="../meshes/public/left_arm_link03.stl" />
+    <mesh name="collision_left_arm_link04_hull" file="../meshes/convex/left_arm_link04_hull.stl" />
+    <mesh name="left_arm_link04_left_arm_link04" file="../meshes/public/left_arm_link04.stl" />
+    <mesh name="collision_left_arm_link05_hull" file="../meshes/convex/left_arm_link05_hull.stl" />
+    <mesh name="left_arm_link05_left_arm_link05" file="../meshes/public/left_arm_link05.stl" />
+    <mesh name="collision_left_arm_link06_hull" file="../meshes/convex/left_arm_link06_hull.stl" />
+    <mesh name="left_arm_link06_left_arm_link06" file="../meshes/public/left_arm_link06.stl" />
+    <mesh name="collision_left_arm_link07_hull" file="../meshes/convex/left_arm_link07_hull.stl" />
+    <mesh name="left_arm_link07_left_arm_link07" file="../meshes/public/left_arm_link07.stl" />
+    <mesh name="collision_left_hand_hull" file="../meshes/convex/left_hand_hull.stl" />
+    <mesh name="left_hand_left_hand" file="../meshes/public/left_hand.stl" />
+    <mesh name="collision_left_wrist_motor_A_hull" file="../meshes/convex/left_wrist_motor_A_hull.stl" />
+    <mesh name="left_wrist_motor_A_left_wrist_motor_A" file="../meshes/public/left_wrist_motor_A.stl" />
+    <mesh name="collision_left_wrist_rod_A_hull" file="../meshes/convex/left_wrist_rod_A_hull.stl" />
+    <mesh name="left_wrist_rod_A_left_wrist_rod_A" file="../meshes/public/left_wrist_rod_A.stl" />
+    <mesh name="collision_left_wrist_motor_B_hull" file="../meshes/convex/left_wrist_motor_B_hull.stl" />
+    <mesh name="left_wrist_motor_B_left_wrist_motor_B" file="../meshes/public/left_wrist_motor_B.stl" />
+    <mesh name="collision_left_wrist_rod_B_hull" file="../meshes/convex/left_wrist_rod_B_hull.stl" />
+    <mesh name="left_wrist_rod_B_left_wrist_rod_B" file="../meshes/public/left_wrist_rod_B.stl" />
+    <mesh name="collision_right_arm_link01_hull" file="../meshes/convex/right_arm_link01_hull.stl" />
+    <mesh name="right_arm_link01_right_arm_link01" file="../meshes/public/right_arm_link01.stl" />
+    <mesh name="collision_right_arm_link02_hull" file="../meshes/convex/right_arm_link02_hull.stl" />
+    <mesh name="right_arm_link02_right_arm_link02" file="../meshes/public/right_arm_link02.stl" />
+    <mesh name="collision_right_arm_link03_hull" file="../meshes/convex/right_arm_link03_hull.stl" />
+    <mesh name="right_arm_link03_right_arm_link03" file="../meshes/public/right_arm_link03.stl" />
+    <mesh name="collision_right_arm_link04_hull" file="../meshes/convex/right_arm_link04_hull.stl" />
+    <mesh name="right_arm_link04_right_arm_link04" file="../meshes/public/right_arm_link04.stl" />
+    <mesh name="collision_right_arm_link05_hull" file="../meshes/convex/right_arm_link05_hull.stl" />
+    <mesh name="right_arm_link05_right_arm_link05" file="../meshes/public/right_arm_link05.stl" />
+    <mesh name="collision_right_arm_link06_hull" file="../meshes/convex/right_arm_link06_hull.stl" />
+    <mesh name="right_arm_link06_right_arm_link06" file="../meshes/public/right_arm_link06.stl" />
+    <mesh name="collision_right_arm_link07_hull" file="../meshes/convex/right_arm_link07_hull.stl" />
+    <mesh name="right_arm_link07_right_arm_link07" file="../meshes/public/right_arm_link07.stl" />
+    <mesh name="collision_right_hand_hull" file="../meshes/convex/right_hand_hull.stl" />
+    <mesh name="right_hand_right_hand" file="../meshes/public/right_hand.stl" />
+    <mesh name="collision_right_wrist_motor_A_hull" file="../meshes/convex/right_wrist_motor_A_hull.stl" />
+    <mesh name="right_wrist_motor_A_right_wrist_motor_A" file="../meshes/public/right_wrist_motor_A.stl" />
+    <mesh name="collision_right_wrist_rod_A_hull" file="../meshes/convex/right_wrist_rod_A_hull.stl" />
+    <mesh name="right_wrist_rod_A_right_wrist_rod_A" file="../meshes/public/right_wrist_rod_A.stl" />
+    <mesh name="collision_right_wrist_motor_B_hull" file="../meshes/convex/right_wrist_motor_B_hull.stl" />
+    <mesh name="right_wrist_motor_B_right_wrist_motor_B" file="../meshes/public/right_wrist_motor_B.stl" />
+    <mesh name="collision_right_wrist_rod_B_hull" file="../meshes/convex/right_wrist_rod_B_hull.stl" />
+    <mesh name="right_wrist_rod_B_right_wrist_rod_B" file="../meshes/public/right_wrist_rod_B.stl" />
+    <mesh name="collision_head_link01_hull" file="../meshes/convex/head_link01_hull.stl" />
+    <mesh name="head_link01_head_link01" file="../meshes/public/head_link01.stl" />
+    <mesh name="collision_head_link02_hull" file="../meshes/convex/head_link02_hull.stl" />
+    <mesh name="head_link02_head_link02" file="../meshes/public/head_link02.stl" />
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300" />
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2" />
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072" />
+  </asset>
+
+  <actuator>
+    <motor name="idx01_left_hip_roll" joint="idx01_left_hip_roll" />
+    <motor name="idx02_left_hip_yaw" joint="idx02_left_hip_yaw" />
+    <motor name="idx03_left_hip_pitch" joint="idx03_left_hip_pitch" />
+    <motor name="idx04_left_tarsus" joint="idx04_left_tarsus" />
+    <motor name="idx05_left_toe_pitch" joint="idx05_left_toe_pitch" />
+    <motor name="idx06_left_toe_roll" joint="idx06_left_toe_roll" />
+    <motor name="idx07_right_hip_roll" joint="idx07_right_hip_roll" />
+    <motor name="idx08_right_hip_yaw" joint="idx08_right_hip_yaw" />
+    <motor name="idx09_right_hip_pitch" joint="idx09_right_hip_pitch" />
+    <motor name="idx10_right_tarsus" joint="idx10_right_tarsus" />
+    <motor name="idx11_right_toe_pitch" joint="idx11_right_toe_pitch" />
+    <motor name="idx12_right_toe_roll" joint="idx12_right_toe_roll" />
+  </actuator>
+
+  <visual>
+    <rgba haze="0.15 0.25 0.35 1" />
+  </visual>
+</mujoco>
