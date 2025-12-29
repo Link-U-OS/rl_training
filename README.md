@@ -9,16 +9,13 @@
 ### 安装依赖
 1. 创建一个新的python3.8虚拟环境:
    - `conda create -n myenv python=3.8`.
-2. 安装 pytorch 1.13 和 cuda-11.7:
-   - `conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia`
-3. 安装 numpy-1.23:
-   - `conda install numpy=1.23`.
-4. 安装 Isaac Gym:
-   - 下载并安装 Isaac Gym Preview 4  https://developer.nvidia.com/isaac-gym.
+   - Activate conda environment `conda activate myenv`
+2. 安装 Isaac Gym:
+   - Download and install Isaac Gym Preview 4  https://developer.nvidia.com/isaac-gym.
    - `cd isaacgym/python && pip install -e .`
    - Run an example with `cd examples && python 1080_balls_of_solitude.py`.
    - Consult `isaacgym/docs/index.html` for troubleshooting.
-6. 安装训练代码依赖：
+3. 安装训练代码依赖：
    - Clone this repository.
    - `pip install -e .`
 
@@ -27,7 +24,7 @@
 #### Train:
 
 ```python humanoid/scripts/train.py --task=a2_dh_stand --run_name=<run_name> --headless```
-- 训练好的模型会存`/log/<experiment_name>/exported_data/<date_time><run_name>/model_<iteration>.pt` 其中 `<experiment_name>` 在config文件中定义。
+- 训练好的模型会存`/logs/<experiment_name>/exported_data/<date_time><run_name>/model_<iteration>.pt` 其中 `<experiment_name>` 在config文件中定义。
 
 #### Play:
 
@@ -36,12 +33,16 @@
 #### 生成jit模型:
 
 ``` python humanoid/scripts/export_policy_dh.py --task=a2_dh_stand --load_run=<date_time><run_name>  ```
-- jit模型会存`/log/exported_policies/<date_time>`
+- jit模型会存`/logs/exported_policies/<date_time>`
 
 #### 生成onnx模型:
 
 ``` python humanoid/scripts/export_onnx_dh.py --task=a2_dh_stand --load_run=<date_time>  ```
-- onnx模型会存`/log/exported_policies/<date_time>`
+- onnx模型会存`/logs/exported_policies/<date_time>`
+
+#### 查看训练日志:
+
+``tensorboard --logdir logs``
 
 #### 参数说明：
 - task: Task name
