@@ -116,7 +116,6 @@ class TaskRegistry:
             sim_device=args.sim_device,
             headless=args.headless,
         )
-        self.env_cfg_for_wandb = env_cfg
         return env, env_cfg
 
     def make_alg_runner(
@@ -171,8 +170,7 @@ class TaskRegistry:
             log_dir = os.path.join(log_root, current_date_time_str + train_cfg.runner.run_name)
 
         train_cfg_dict = class_to_dict(train_cfg)
-        env_cfg_dict = class_to_dict(self.env_cfg_for_wandb)
-        all_cfg = {**train_cfg_dict, **env_cfg_dict}
+        all_cfg = train_cfg_dict
 
         runner_class = eval(train_cfg_dict["runner_class_name"])
         runner = runner_class(env, all_cfg, log_dir, device=args.rl_device)

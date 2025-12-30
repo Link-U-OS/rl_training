@@ -49,5 +49,8 @@ setup(
         "mujoco==2.3.6",
         "mujoco-python-viewer",
         "matplotlib",
+        "pygame",
+        "pandas==2.0.3",
+        "onnx",
     ],
 )
