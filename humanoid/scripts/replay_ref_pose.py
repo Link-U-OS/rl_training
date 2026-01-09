@@ -3,30 +3,14 @@ import os
 import re
 import numpy as np
 import pandas as pd
-import torch
+
 import mujoco
 import mujoco.viewer
 
-import importlib.util
-from pathlib import Path
+from humanoid import LEGGED_GYM_ROOT_DIR
+from humanoid.envs.a2.trajectory import RaiseA2Trajectory
 
-
-def import_from_relative_path(module_name: str, relative_path: str):
-    base_dir = Path(__file__).resolve().parent
-    module_path = (base_dir / relative_path).resolve()
-
-    if not module_path.exists():
-        raise FileNotFoundError(f"Module file not found: {module_path}")
-
-    spec = importlib.util.spec_from_file_location(module_name, module_path)
-    module = importlib.util.module_from_spec(spec)
-    assert spec and spec.loader
-    spec.loader.exec_module(module)
-    return module
-
-
-traj_mod = import_from_relative_path("a2_trajectory", "../envs/a2/trajectory.py")
-RaiseA2Trajectory = traj_mod.RaiseA2Trajectory
+import torch
 
 
 def load_mjcf_safe(mjcf_path):
