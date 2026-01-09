@@ -13,7 +13,7 @@
     </default>
   </default>
 
-  <compiler angle="radian" meshdir="." balanceinertia="true" />
+  <compiler angle="radian" meshdir="." balanceinertia="true" autolimits="true" />
 
   <visual>
     <global offwidth="3840" offheight="2160" />

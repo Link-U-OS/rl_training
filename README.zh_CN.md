@@ -46,6 +46,10 @@
 
 ``tensorboard --logdir logs``
 
+#### 使用 mujuco 查看参考轨迹：
+
+``` python humanoid/scripts/replay_ref_pose.py ```
+
 #### 参数说明：
 - task: 任务名称
 - resume: 从检查点恢复训练

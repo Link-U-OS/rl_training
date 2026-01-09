@@ -45,7 +45,11 @@ Raise A2 is a modular, high-freedom humanoid robot developed and open-sourced by
 
 #### View Training Logs:
 
-``tensorboard --logdir logs``
+``` tensorboard --logdir logs ```
+
+#### Visualize the reference trajectory using MuJoCo:
+
+``` python humanoid/scripts/replay_ref_pose.py ```
 
 #### Parameter Explanation:
 - task: Task name
