@@ -398,38 +398,38 @@ class A2DHStandCfg(LeggedRobotCfg):
 
         class scales:
             ref_joint_pos = 2.2
-            feet_clearance = 1.0
-            feet_contact_number = 2.0
+            feet_clearance = 1.5
+            feet_contact_number = 1.7
             # gait
-            feet_air_time = 1.2
-            foot_slip = -0.1
+            feet_air_time = 1.1
+            # foot_slip = -0.1
             feet_distance = 0.2
-            knee_distance = 0.2
+            # knee_distance = 0.2
             # contact
-            feet_contact_forces = -0.01
+            # feet_contact_forces = -0.01
             # vel tracking
-            tracking_lin_vel = 1.8
+            tracking_lin_vel = 2.2
             tracking_ang_vel = 1.1
-            vel_mismatch_exp = 0.5  # lin_z; ang x,y
-            low_speed = 0.2
-            track_vel_hard = 0.5
+            # vel_mismatch_exp = 0.5  # lin_z; ang x,y
+            # low_speed = 0.2
+            # track_vel_hard = 0.5
             # base pos
-            default_joint_pos = 1.0
+            default_joint_pos = 2.2
             orientation = 1.0
             # feet_rotation = 0.3
             base_height = 0.2
-            base_acc = 0.2
+            # base_acc = 0.2
             # energy
-            action_smoothness = -0.05
-            torques = -8e-9
-            dof_vel = -2e-8
+            action_smoothness = -0.1
+            # torques = -8e-9
+            # dof_vel = -2e-8
             dof_acc = -1e-6
-            collision = -1.0
-            stand_still = 2.5
+            # collision = -1.0
+            stand_still = 0.3
             # limits
-            dof_vel_limits = -1.0
+            # dof_vel_limits = -1.0
             dof_pos_limits = -1.0
-            dof_torque_limits = -0.1
+            # dof_torque_limits = -0.1
 
     class normalization:
         class obs_scales:
