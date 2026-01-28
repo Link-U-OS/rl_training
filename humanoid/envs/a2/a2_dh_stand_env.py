@@ -793,29 +793,17 @@ class A2DHStandEnv(LeggedRobot):
             dim=1,
         )
 
-    def _reward_yaw_joint_pos(self):
+    def _reward_default_joint_pos(self):
         """
         Calculates the reward for keeping joint positions close to default positions, with a focus
-        on penalizing deviation in yaw directions.
+        on penalizing deviation in yaw and roll directions.
         """
         joint_diff = self.dof_pos - self.default_joint_pd_target
-        left_yaw = joint_diff[:, [1]]
-        right_yaw = joint_diff[:, [7]]
-        yaw = torch.norm(left_yaw, dim=1) + torch.norm(right_yaw, dim=1)
-        yaw = torch.clamp(yaw - 0.1, 0, 50)
-        return torch.exp(-yaw * 10)
-
-    def _reward_roll_joint_pos(self):
-        """
-        Calculates the reward for keeping joint positions close to default positions, with a focus
-        on penalizing deviation in roll directions.
-        """
-        joint_diff = self.dof_pos - self.default_joint_pd_target
-        left_roll = joint_diff[:, [0, 5]]
-        right_roll = joint_diff[:, [6, 11]]
-        roll = torch.norm(left_roll, dim=1) + torch.norm(right_roll, dim=1)
-        roll = torch.clamp(roll - 0.1, 0, 50)
-        return torch.exp(-roll * 10)
+        left_yaw_roll = joint_diff[:, [0, 1, 5]]
+        right_yaw_roll = joint_diff[:, [6, 7, 11]]
+        yaw_roll = torch.norm(left_yaw_roll, dim=1) + torch.norm(right_yaw_roll, dim=1)
+        yaw_roll = torch.clamp(yaw_roll - 0.1, 0, 50)
+        return torch.exp(-yaw_roll * 10)
 
     def _reward_base_height(self):
         """

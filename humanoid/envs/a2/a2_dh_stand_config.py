@@ -414,8 +414,7 @@ class A2DHStandCfg(LeggedRobotCfg):
             # low_speed = 0.2
             # track_vel_hard = 0.5
             # base pos
-            yaw_joint_pos = 1.5
-            roll_joint_pos = 2.2
+            default_joint_pos = 2.2
             orientation = 1.0
             # feet_rotation = 0.3
             base_height = 0.2
