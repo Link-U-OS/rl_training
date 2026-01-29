@@ -803,7 +803,7 @@ class A2DHStandEnv(LeggedRobot):
         right_yaw_roll = joint_diff[:, [6, 7, 11]]
         yaw_roll = torch.norm(left_yaw_roll, dim=1) + torch.norm(right_yaw_roll, dim=1)
         yaw_roll = torch.clamp(yaw_roll - 0.1, 0, 50)
-        return torch.exp(-yaw_roll * 100) - 0.01 * torch.norm(joint_diff, dim=1)
+        return torch.exp(-yaw_roll * 10)
 
     def _reward_base_height(self):
         """

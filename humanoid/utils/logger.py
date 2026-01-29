@@ -30,6 +30,7 @@
 
 # Copyright (c) 2024, AgiBot Inc. All rights reserved.
 
+import os
 import matplotlib.pyplot as plt
 import numpy as np
 from collections import defaultdict
@@ -37,13 +38,26 @@ from multiprocessing import Process, Value
 
 
 class Logger:
-    def __init__(self, dt, meta=None):
+    def __init__(
+        self, dt, meta=None, save_dir=None, save_prefix=None, save_format="png"
+    ):
         self.state_log = defaultdict(list)
         self.rew_log = defaultdict(list)
         self.dt = dt
         self.num_episodes = 0
         self.plot_process = None
         self.meta = meta or {}
+        self.save_dir = save_dir
+        self.save_prefix = save_prefix
+        self.save_format = save_format
+
+    def _save_fig(self, fig, suffix):
+        if not self.save_dir or not self.save_prefix or suffix is None:
+            return
+        os.makedirs(self.save_dir, exist_ok=True)
+        filename = f"{self.save_prefix}_{suffix}.{self.save_format}"
+        path = os.path.join(self.save_dir, filename)
+        fig.savefig(path, dpi=300, bbox_inches="tight")
 
     def log_state(self, key, value):
         self.state_log[key].append(value)
@@ -63,39 +77,39 @@ class Logger:
         self.rew_log.clear()
 
     def plot_states(self):
-        self.plot_process = Process(target=self._plot)
-        self.plot_process1 = Process(target=self._plot_position)
-        # self.plot_process2 = Process(target=self._plot_torque)
+        self.plot_process = Process(target=self._plot, args=(1,))
+        self.plot_process1 = Process(target=self._plot_position, args=(2,))
+        self.plot_process2 = Process(target=self._plot_torque, args=(3,))
         # self.plot_process3 = Process(target=self._plot_vel)
         # self.plot_process4 = Process(target=self._plot_tn_rms)
         # self.plot_process5 = Process(target=self._plot_tn)
         # self.plot_process6 = Process(target=self._plot_torque_vel)
-        self.plot_process7 = Process(target=self._plot_position1)
-        self.plot_process_feet = Process(target=self._plot_feet_metrics)
-        # self.plot_process8 = Process(target=self._plot_torque1)
+        self.plot_process7 = Process(target=self._plot_position1, args=(4,))
+        self.plot_process_feet = Process(target=self._plot_feet_metrics, args=(5,))
+        self.plot_process8 = Process(target=self._plot_torque1, args=(6,))
         # self.plot_process9 = Process(target=self._plot_vel1)
         # self.plot_process10 = Process(target=self._plot_tn_rms1)
         # self.plot_process11 = Process(target=self._plot_tn1)
         # self.plot_process12 = Process(target=self._plot_torque_vel1)
         self.plot_process.start()
         self.plot_process1.start()
-        # self.plot_process2.start()
+        self.plot_process2.start()
         # self.plot_process3.start()
         # self.plot_process4.start()
         # self.plot_process5.start()
         # self.plot_process6.start()
         self.plot_process7.start()
         self.plot_process_feet.start()
-        # self.plot_process8.start()
+        self.plot_process8.start()
         # self.plot_process9.start()
         # self.plot_process10.start()
         # self.plot_process11.start()
         # self.plot_process12.start()
 
-    def _plot(self):
+    def _plot(self, save_suffix=None):
         nb_rows = 3
         nb_cols = 3
-        fig, axs = plt.subplots(nb_rows, nb_cols)
+        fig, axs = plt.subplots(nb_rows, nb_cols, figsize=(12, 9), sharex="col")
         for key, value in self.state_log.items():
             time = np.linspace(0, len(value) * self.dt, len(value))
             break
@@ -107,7 +121,7 @@ class Logger:
         if log["command_x"]:
             a.plot(time, log["command_x"], label="commanded")
         if log["command_sin"]:
-            a.plot(time, log["command_sin"], label="commanded")
+            a.plot(time, log["command_sin"], label="commanded_sin")
         a.set(xlabel="time [s]", ylabel="base lin vel [m/s]", title="Base velocity x")
         a.legend()
         # plot base vel y
@@ -117,7 +131,7 @@ class Logger:
         if log["command_y"]:
             a.plot(time, log["command_y"], label="commanded")
         if log["command_cos"]:
-            a.plot(time, log["command_cos"], label="commanded")
+            a.plot(time, log["command_cos"], label="commanded_cos")
         a.set(xlabel="time [s]", ylabel="base lin vel [m/s]", title="Base velocity y")
         a.legend()
         # plot base vel yaw
@@ -126,7 +140,9 @@ class Logger:
             a.plot(time, log["base_vel_yaw"], label="measured")
         if log["command_yaw"]:
             a.plot(time, log["command_yaw"], label="commanded")
-        a.set(xlabel="time [s]", ylabel="base ang vel [rad/s]", title="Base velocity yaw")
+        a.set(
+            xlabel="time [s]", ylabel="base ang vel [rad/s]", title="Base velocity yaw"
+        )
         a.legend()
         # # plot base vel z
         # a = axs[1, 0]
@@ -138,12 +154,13 @@ class Logger:
         # if log["command_cos"]: a.plot(time, log["command_cos"], label='commanded')
         # a.set(xlabel='time [s]', ylabel='command cos', title='Command Cos')
         # a.legend()
+        self._save_fig(fig, save_suffix)
         plt.show()
 
-    def _plot_position(self):
+    def _plot_position(self, save_suffix=None):
         nb_rows = 2
         nb_cols = 3
-        fig, axs = plt.subplots(nb_rows, nb_cols)
+        fig, axs = plt.subplots(nb_rows, nb_cols, figsize=(12, 9), sharex="col")
         for key, value in self.state_log.items():
             time = np.linspace(0, len(value) * self.dt, len(value))
             break
@@ -208,12 +225,13 @@ class Logger:
             a.plot(time, log["ref_dof_pos[5]"], label="reference", linestyle="--")
         a.set(xlabel="time [s]", ylabel="Position [rad]", title="DOF Position[5]")
         a.legend()
+        self._save_fig(fig, save_suffix)
         plt.show()
 
-    def _plot_position1(self):
+    def _plot_position1(self, save_suffix=None):
         nb_rows = 2
         nb_cols = 3
-        fig, axs = plt.subplots(nb_rows, nb_cols)
+        fig, axs = plt.subplots(nb_rows, nb_cols, figsize=(12, 9), sharex="col")
         for key, value in self.state_log.items():
             time = np.linspace(0, len(value) * self.dt, len(value))
             break
@@ -278,9 +296,10 @@ class Logger:
             a.plot(time, log["ref_dof_pos[11]"], label="reference", linestyle="--")
         a.set(xlabel="time [s]", ylabel="Position [rad]", title="DOF Position[11]")
         a.legend()
+        self._save_fig(fig, save_suffix)
         plt.show()
 
-    def _plot_feet_metrics(self):
+    def _plot_feet_metrics(self, save_suffix=None):
         keys_of_interest = [
             "feet_clearance_left",
             "feet_clearance_right",
@@ -288,7 +307,9 @@ class Logger:
             "feet_contact_actual_right",
         ]
         available_lengths = [
-            len(self.state_log[k]) for k in keys_of_interest if k in self.state_log and len(self.state_log[k]) > 0
+            len(self.state_log[k])
+            for k in keys_of_interest
+            if k in self.state_log and len(self.state_log[k]) > 0
         ]
         if not available_lengths:
             return
@@ -303,7 +324,9 @@ class Logger:
             if arr.shape[0] >= series_length:
                 return arr[:series_length]
             pad_value = arr[-1] if arr.size > 0 else default
-            return np.pad(arr, (0, series_length - arr.shape[0]), constant_values=pad_value)
+            return np.pad(
+                arr, (0, series_length - arr.shape[0]), constant_values=pad_value
+            )
 
         time = np.arange(series_length) * self.dt
         clearance_left = _get_series("feet_clearance_left")
@@ -316,14 +339,18 @@ class Logger:
         contact_reward_right = _get_series("feet_contact_number_right", default=1.0)
 
         target_height = float(self.meta.get("target_feet_height", 0.0))
-        target_height_max = float(self.meta.get("target_feet_height_max", target_height))
+        target_height_max = float(
+            self.meta.get("target_feet_height_max", target_height)
+        )
         target_swing_left = 1.0 - target_stance_left
         target_swing_right = 1.0 - target_stance_right
 
         fig, axs = plt.subplots(3, 2, figsize=(12, 9), sharex="col")
 
         left_clearance_ax = axs[0, 0]
-        left_clearance_ax.plot(time, clearance_left, label="Measured swing height", color="tab:blue")
+        left_clearance_ax.plot(
+            time, clearance_left, label="Measured swing height", color="tab:blue"
+        )
         if target_height > 0.0:
             left_clearance_ax.step(
                 time,
@@ -349,7 +376,9 @@ class Logger:
         left_clearance_ax.legend(loc="upper right")
 
         right_clearance_ax = axs[0, 1]
-        right_clearance_ax.plot(time, clearance_right, label="Measured swing height", color="tab:green")
+        right_clearance_ax.plot(
+            time, clearance_right, label="Measured swing height", color="tab:green"
+        )
         if target_height > 0.0:
             right_clearance_ax.step(
                 time,
@@ -405,9 +434,15 @@ class Logger:
         left_contact_ax.legend(loc="upper right")
 
         left_force_ax = axs[2, 0]
-        force_line_left = left_force_ax.plot(time, contact_force_left, label="Contact force", color="tab:purple")[0]
+        force_line_left = left_force_ax.plot(
+            time, contact_force_left, label="Contact force", color="tab:purple"
+        )[0]
         max_force_line_left = None
-        max_force_value_left = float(max_contact_force_series[0]) if np.any(max_contact_force_series > 0.0) else 0.0
+        max_force_value_left = (
+            float(max_contact_force_series[0])
+            if np.any(max_contact_force_series > 0.0)
+            else 0.0
+        )
         if max_force_value_left > 0.0:
             max_force_line_left = left_force_ax.axhline(
                 y=max_force_value_left,
@@ -420,8 +455,10 @@ class Logger:
         left_force_ax.set_ylim(0.0, max(max_force * 1.1 if max_force > 0 else 1.0, 1.0))
         left_force_ax.grid(True, alpha=0.3)
         left_force_ax.legend(
-            [force_line_left] + ([max_force_line_left] if max_force_line_left is not None else []),
-            ["Contact force"] + (["Max contact force"] if max_force_line_left is not None else []),
+            [force_line_left]
+            + ([max_force_line_left] if max_force_line_left is not None else []),
+            ["Contact force"]
+            + (["Max contact force"] if max_force_line_left is not None else []),
             loc="upper right",
         )
         left_force_ax.set_xlabel("Time [s]")
@@ -457,9 +494,15 @@ class Logger:
         right_contact_ax.legend(loc="upper right")
 
         right_force_ax = axs[2, 1]
-        force_line_right = right_force_ax.plot(time, contact_force_right, label="Contact force", color="tab:purple")[0]
+        force_line_right = right_force_ax.plot(
+            time, contact_force_right, label="Contact force", color="tab:purple"
+        )[0]
         max_force_line_right = None
-        max_force_value_right = float(max_contact_force_series[0]) if np.any(max_contact_force_series > 0.0) else 0.0
+        max_force_value_right = (
+            float(max_contact_force_series[0])
+            if np.any(max_contact_force_series > 0.0)
+            else 0.0
+        )
         if max_force_value_right > 0.0:
             max_force_line_right = right_force_ax.axhline(
                 y=max_force_value_right,
@@ -472,23 +515,28 @@ class Logger:
             np.max(contact_force_right),
             max_force_value_right,
         )
-        right_force_ax.set_ylim(0.0, max(max_force_right * 1.1 if max_force_right > 0 else 1.0, 1.0))
+        right_force_ax.set_ylim(
+            0.0, max(max_force_right * 1.1 if max_force_right > 0 else 1.0, 1.0)
+        )
         right_force_ax.grid(True, alpha=0.3)
         right_force_ax.legend(
-            [force_line_right] + ([max_force_line_right] if max_force_line_right is not None else []),
-            ["Contact force"] + (["Max contact force"] if max_force_line_right is not None else []),
+            [force_line_right]
+            + ([max_force_line_right] if max_force_line_right is not None else []),
+            ["Contact force"]
+            + (["Max contact force"] if max_force_line_right is not None else []),
             loc="upper right",
         )
         right_force_ax.set_xlabel("Time [s]")
 
         fig.suptitle("Foot Swing Height and Contact Phase", fontsize=14)
         plt.tight_layout(rect=[0, 0, 1, 0.97])
+        self._save_fig(fig, save_suffix)
         plt.show()
 
-    def _plot_torque(self):
+    def _plot_torque(self, save_suffix=None):
         nb_rows = 2
         nb_cols = 3
-        fig, axs = plt.subplots(nb_rows, nb_cols)
+        fig, axs = plt.subplots(nb_rows, nb_cols, figsize=(12, 9), sharex="col")
         for key, value in self.state_log.items():
             time = np.linspace(0, len(value) * self.dt, len(value))
             break
@@ -524,12 +572,13 @@ class Logger:
             a.plot(time, log["dof_torque[5]"], label="measured")
         a.set(xlabel="time [s]", ylabel="Joint Torque [Nm]", title="Torque[5]")
         a.legend()
+        self._save_fig(fig, save_suffix)
         plt.show()
 
     def _plot_torque1(self):
         nb_rows = 2
         nb_cols = 3
-        fig, axs = plt.subplots(nb_rows, nb_cols)
+        fig, axs = plt.subplots(nb_rows, nb_cols, figsize=(12, 9), sharex="col")
         for key, value in self.state_log.items():
             time = np.linspace(0, len(value) * self.dt, len(value))
             break
@@ -570,7 +619,7 @@ class Logger:
     def _plot_vel(self):
         nb_rows = 2
         nb_cols = 3
-        fig, axs = plt.subplots(nb_rows, nb_cols)
+        fig, axs = plt.subplots(nb_rows, nb_cols, figsize=(12, 9), sharex="col")
         for key, value in self.state_log.items():
             time = np.linspace(0, len(value) * self.dt, len(value))
             break
@@ -623,7 +672,7 @@ class Logger:
     def _plot_vel1(self):
         nb_rows = 2
         nb_cols = 3
-        fig, axs = plt.subplots(nb_rows, nb_cols)
+        fig, axs = plt.subplots(nb_rows, nb_cols, figsize=(12, 9), sharex="col")
         for key, value in self.state_log.items():
             time = np.linspace(0, len(value) * self.dt, len(value))
             break
