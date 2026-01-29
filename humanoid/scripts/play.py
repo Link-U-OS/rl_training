@@ -142,7 +142,18 @@ def play(args):
     logger = Logger(
         env_cfg.sim.dt * env_cfg.control.decimation,
         meta=feet_plot_meta,
+        save_dir=os.path.join(
+            LEGGED_GYM_ROOT_DIR,
+            "logs",
+            train_cfg.runner.experiment_name,
+            "exported_data",
+            train_cfg.runner.load_run,
+            "plots",
+            f"ckpt_{train_cfg.runner.checkpoint}",
+        ),
+        save_prefix=train_cfg.runner.load_run,
     )
+    
     robot_index = 0  # which robot is used for logging
     joint_index = 5  # which joint is used for logging
     stop_state_log = 1000  # number of steps before plotting states

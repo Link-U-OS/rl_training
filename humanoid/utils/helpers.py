@@ -32,11 +32,13 @@
 
 import os
 import copy
+import shutil
 import torch
 import numpy as np
 import random
 from isaacgym import gymapi
 from isaacgym import gymutil
+from humanoid import LEGGED_GYM_ENVS_DIR
 
 
 def class_to_dict(obj) -> dict:
@@ -190,6 +192,11 @@ def get_args():
             "help": "Name of the run to load when resume=True. If -1: will load the last run. Overrides config file if provided.",
         },
         {
+            "name": "--load_name",
+            "type": str,
+            "help": "Name used for saving plots or exports. Defaults to load_run/run_name if not provided.",
+        },
+        {
             "name": "--checkpoint",
             "type": int,
             "help": "Saved model checkpoint number. If -1: will load the last checkpoint. Overrides config file if provided.",
@@ -257,3 +264,28 @@ def export_policy_as_jit(actor_critic, path):
     model = copy.deepcopy(actor_critic.actor).to("cpu")
     traced_script_module = torch.jit.script(model)
     traced_script_module.save(path)
+
+
+def backup_a2_env_configs(log_dir: str):
+    if log_dir is None:
+        return
+
+    backup_dir = os.path.join(log_dir, "params")
+    os.makedirs(backup_dir, exist_ok=True)
+
+    a2_dir = os.path.join(LEGGED_GYM_ENVS_DIR, "a2")
+    files_to_backup = [
+        "a2_dh_stand_config.py",
+        "a2_dh_stand_env.py",
+    ]
+    for fname in files_to_backup:
+        src = os.path.join(a2_dir, fname)
+        if os.path.exists(src):
+            dst = os.path.join(backup_dir, fname)
+            try:
+                shutil.copy2(src, dst)
+                print(f"[INFO] backup {src} -> {dst}")
+            except Exception as e:
+                print(f"[WARN] backup from {src} to {dst} Failed: {e}")
+        else:
+            print(f"[WARN] can not find file to backup: {src}")
